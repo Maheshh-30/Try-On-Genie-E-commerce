@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryOn Genie - Virtual Try-On Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">TryOn</span>
+                <span class="logo-accent">Genie</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#tryon" class="nav-link">Try Now</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">Experience Fashion<br><span class="gradient-text">Before You Buy</span></h1>
+            <p class="hero-subtitle fade-in-delay">Upload your photo and try on clothes virtually with our AI-powered technology</p>
+            <a href="#tryon" class="cta-button fade-in-delay-2">Start Trying On</a>
+        </div>
+        <div class="hero-image fade-in-delay">
+            <div class="floating-card">
+                <div class="card-shimmer"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2 class="section-title">Why Choose TryOn Genie?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3>Upload Photos</h3>
+                <p>Upload your photo and clothing images easily</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📹</div>
+                <h3>Live Webcam</h3>
+                <p>Use your webcam for real-time try-on experience</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>AI Powered</h3>
+                <p>Advanced overlay technology for realistic results</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Save Results</h3>
+                <p>Download and share your virtual try-on photos</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Try-On Section -->
+    <section id="tryon" class="tryon-section">
+        <h2 class="section-title">Virtual Try-On Studio</h2>
+        
+        <div class="tryon-container">
+            <!-- Input Controls -->
+            <div class="control-panel">
+                <div class="upload-group">
+                    <h3>Upload Your Photo</h3>
+                    <label for="personImage" class="upload-label">
+                        <span class="upload-icon">👤</span>
+                        <span>Choose Photo</span>
+                    </label>
+                    <input type="file" id="personImage" accept="image/*" class="file-input">
+                    <span class="file-name" id="personFileName">No file chosen</span>
+                </div>
+
+                <div class="divider">OR</div>
+
+                <div class="upload-group">
+                    <h3>Use Webcam</h3>
+                    <button id="startWebcam" class="btn-secondary">
+                        <span>📷</span> Start Webcam
+                    </button>
+                    <button id="capturePhoto" class="btn-secondary" style="display:none;">
+                        <span>📸</span> Capture Photo
+                    </button>
+                    <button id="stopWebcam" class="btn-secondary" style="display:none;">
+                        <span>⏹</span> Stop Webcam
+                    </button>
+                </div>
+
+                <div class="upload-group">
+                    <h3>Upload Clothing</h3>
+                    <label for="clothingImage" class="upload-label">
+                        <span class="upload-icon">👕</span>
+                        <span>Choose Clothing</span>
+                    </label>
+                    <input type="file" id="clothingImage" accept="image/*" class="file-input">
+                    <span class="file-name" id="clothingFileName">No file chosen</span>
+                </div>
+
+                <div class="controls-group">
+                    <h3>Adjust Position</h3>
+                    <div class="slider-control">
+                        <label>X Position</label>
+                        <input type="range" id="xPosition" min="0" max="100" value="50" class="slider">
+                        <span id="xValue">50%</span>
+                    </div>
+                    <div class="slider-control">
+                        <label>Y Position</label>
+                        <input type="range" id="yPosition" min="0" max="100" value="30" class="slider">
+                        <span id="yValue">30%</span>
+                    </div>
+                    <div class="slider-control">
+                        <label>Size</label>
+                        <input type="range" id="clothingSize" min="20" max="150" value="70" class="slider">
+                        <span id="sizeValue">70%</span>
+                    </div>
+                    <div class="slider-control">
+                        <label>Opacity</label>
+                        <input type="range" id="clothingOpacity" min="0" max="100" value="90" class="slider">
+                        <span id="opacityValue">90%</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="applyTryon" class="btn-primary">
+                        <span>✨</span> Apply Try-On
+                    </button>
+                    <button id="resetCanvas" class="btn-secondary">
+                        <span>🔄</span> Reset
+                    </button>
+                    <button id="downloadResult" class="btn-primary">
+                        <span>💾</span> Download
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas Display -->
+            <div class="canvas-panel">
+                <div class="canvas-wrapper">
+                    <video id="webcam" autoplay playsinline style="display:none;"></video>
+                    <canvas id="mainCanvas"></canvas>
+                    <div class="canvas-overlay" id="canvasPlaceholder">
+                        <div class="placeholder-content">
+                            <span class="placeholder-icon">🎨</span>
+                            <p>Your virtual try-on will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2 class="section-title">About TryOn Genie</h2>
+            <p>TryOn Genie revolutionizes online shopping by letting you visualize how clothes look on you before making a purchase. Our intuitive platform combines cutting-edge image processing with user-friendly controls to deliver a seamless virtual try-on experience.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free to Use</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Instant</div>
+                    <div class="stat-label">Results</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Any Device</div>
+                    <div class="stat-label">Compatible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-text">TryOn</span>
+                    <span class="logo-accent">Genie</span>
+                </div>
+                <p>Experience the future of fashion</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#tryon">Try Now</a>
+                <a href="#about">About</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TryOn Genie. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
