@@ -174,7 +174,8 @@ html {
 .floating-card {
     width: 400px;
     height: 500px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-image: url(HTML.png);
+    background-size: cover;
     border-radius: 20px;
     position: relative;
     overflow: hidden;
